@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h2>Instructions:</h2>
+<h5>Step 1: Upload mailer image to Ribbon Public Assets / Mailers: <a href="https://console.cloud.google.com/storage/browser/ribbon-public-assets/mailers/?project=curious-song-182420"> GCP Mailer Link </a></h5>
+<h5>Step 2: Upload CSV using CSV_Uploader link above</h5>
+<h5>Step 3: Enter in filename of front and back that you uploaded to Ribbon Public Assets</h5>
+<h5>Step 4: Select CSV from drop down menu</h5>
+<h5>Step 5: Click "Send Mailers!"</h5>
+<form method="Post">
+    {% csrf_token %}
+    Mailer Front (e.g. Chrissy_Front.png)<br>
+    <input type="text" name="front_flyer"><br>
+   Mailer Back (e.g. Chrissy_Back.png)<br>  <input type="text" name="back_flyer">
+<br>Address Upload (csv) <br><select name = "csv_template"><br>
+{% for doc in qs %}
+    <option value="{{doc.document}}"> {{doc.document}}: {{doc.description}}</option>
+{% endfor %}
+</select></p>
+
+<button type="submit">Send Mailers!</button>
+</form>
+{% endblock %}
